@@ -23,6 +23,7 @@ const Login = () => {
                 foundUser = true;
                 userDispatch({type: 'SET_USERNAME', payload: username});
                 userDispatch({type: 'SET_IS_LOGGED_IN', payload: true});
+                userDispatch({type: 'SET_LOGIN_TIME', payload: new Date().getTime()});
             }
         });
 
@@ -46,11 +47,15 @@ const Login = () => {
             <h1>Login</h1>
             <hr/>
             <p>{loginError}</p>
-            <form>
-                <input onInput={ e => setUsername(e.currentTarget.value)} type="text" placeholder="Username" />
-                <input onInput={ e => setPassword(e.currentTarget.value)} type="password" placeholder="Password" />
-                <button onClick={checkCredentials} type="button">Login</button>
-            </form>
+
+            {!userState.isLoggedIn &&
+                <form>
+                    <input onInput={ e => setUsername(e.currentTarget.value)} type="text" placeholder="Username" />
+                    <input onInput={ e => setPassword(e.currentTarget.value)} type="password" placeholder="Password" />
+                    <button onClick={checkCredentials} type="button">Login</button>
+                </form>
+            }
+
         </>
     )
 }
