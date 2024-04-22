@@ -1,12 +1,15 @@
 
 import USERS from '../Data/users.json';
-import {useState} from "react";
+import {useEffect, useReducer, useState} from "react";
+import {getUsersInitialData, userReducer} from "../Reducers/User";
 
 const Login = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(null);
+
+    const [userState, userDispatch] = useReducer(userReducer, getUsersInitialData());
 
     const checkCredentials = () => {
         if(!(username.trim() && password.trim())) {
@@ -18,6 +21,8 @@ const Login = () => {
         USERS.forEach((user) => {
             if(user.username === username && user.password === password) {
                 foundUser = true;
+                userDispatch({type: 'SET_USERNAME', payload: username});
+                userDispatch({type: 'SET_IS_LOGGED_IN', payload: true});
             }
         });
 
@@ -27,6 +32,14 @@ const Login = () => {
             setLoginError('Pozdrav '+username+'!');
         }
     }
+
+    useEffect( () => {
+        if(userState.isLoggedIn){
+            localStorage.setItem('userData', JSON.stringify(userState));
+        }
+
+    }, [userState]);
+
 
     return (
         <>
