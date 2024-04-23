@@ -1,6 +1,6 @@
 
 
-export const initialUserData = {
+const initialUserData = {
     username: null,
     isLoggedIn: false,
     loginTime: null
@@ -21,6 +21,6 @@ export const userReducer = (state, action) => {
         case 'SET_LOGIN_TIME':
             return {...state, loginTime: action.payload};
         default:
-                return state;
+            return state;
     }
 };

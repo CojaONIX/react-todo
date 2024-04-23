@@ -43,7 +43,7 @@ const Login = () => {
 
 
     return (
-        <>
+        <div className="container">
             <h1>Login</h1>
             <hr/>
             <p>{loginError}</p>
@@ -56,7 +56,7 @@ const Login = () => {
                 </form>
             }
 
-        </>
+        </div>
     )
 }
 
