@@ -2,6 +2,7 @@ import Navigation from "../Templates/Snippets/Navigation";
 
 
 const About = () => {
+
     return (
         <>
             <Navigation />

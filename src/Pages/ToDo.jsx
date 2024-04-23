@@ -6,9 +6,9 @@ const ToDo = () => {
         <>
             <Navigation />
             <div className="container">
-                <h1>ToDo</h1>
+                <h1>ToDoList</h1>
                 <hr/>
-                <p>ToDo List</p>
+                <p>ToDoList</p>
             </div>
         </>
     )

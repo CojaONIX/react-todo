@@ -1,20 +1,21 @@
-import USERS from '../Data/users.json';
+
 import {useEffect, useReducer, useState} from "react";
 import {getUsersInitialData, userReducer} from "../Reducers/User";
 import {Navigate} from "react-router-dom";
 import Navigation from "../Templates/Snippets/Navigation";
+import USERS from '../Data/users.json';
 
 const Login = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loginError, setLoginError] = useState(null);
+    const [loginMessage, setLoginMessage] = useState(null);
 
     const [userState, userDispatch] = useReducer(userReducer, getUsersInitialData());
 
     const checkCredentials = () => {
         if(!(username.trim() && password.trim())) {
-            setLoginError('Uneli ste pogresne podatke!');
+            setLoginMessage('Uneli ste pogresne podatke!');
             return;
         }
 
@@ -29,9 +30,9 @@ const Login = () => {
         });
 
         if(!foundUser) {
-            setLoginError('Ne postoji trazeni korisnik!');
+            setLoginMessage('Ne postoji trazeni korisnik!');
         } else {
-            setLoginError('Pozdrav '+username+'!');
+            setLoginMessage('Pozdrav '+username+'!');
         }
     }
 
@@ -39,7 +40,6 @@ const Login = () => {
         if(userState.isLoggedIn){
             localStorage.setItem('userData', JSON.stringify(userState));
         }
-
     }, [userState]);
 
 
@@ -61,18 +61,14 @@ const Login = () => {
 
                             <div className="card-body">
                                 <form>
-
                                     <div className="mb-3">
                                         <label htmlFor="email">Email <span className="text-danger">* </span></label>
-                                        <input onInput={e => setUsername(e.currentTarget.value)} type="email"
-                                               className="form-control mt-2" autoFocus/>
+                                        <input onInput={e => setUsername(e.currentTarget.value)} type="email" className="form-control mt-2" autoFocus/>
                                     </div>
-
 
                                     <div className="mb-3">
                                         <label htmlFor="password">Password <span className="text-danger">* </span></label>
-                                        <input onInput={e => setPassword(e.currentTarget.value)} type="password"
-                                               className="form-control mt-2"/>
+                                        <input onInput={e => setPassword(e.currentTarget.value)} type="password" className="form-control mt-2"/>
                                     </div>
 
                                     <button onClick={checkCredentials} type="button"
@@ -83,7 +79,7 @@ const Login = () => {
                             </div>
 
                             <div className="card-footer">
-                                <h6 className="text-danger">{loginError}</h6>
+                                <h6 className="text-danger">{loginMessage}</h6>
                             </div>
                         </div>
                     </div>
