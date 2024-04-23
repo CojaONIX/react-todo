@@ -1,11 +1,15 @@
+import Navigation from "../Templates/Snippets/Navigation";
 
 
 const Home = () => {
     return (
-        <div className="container">
-            <h1>Home</h1>
-            <hr/>
-        </div>
+        <>
+            <Navigation />
+            <div className="container">
+                <h1>Home</h1>
+                <hr/>
+            </div>
+        </>
     )
 }
 

@@ -1,7 +1,8 @@
-
 import USERS from '../Data/users.json';
 import {useEffect, useReducer, useState} from "react";
 import {getUsersInitialData, userReducer} from "../Reducers/User";
+import {Navigate} from "react-router-dom";
+import Navigation from "../Templates/Snippets/Navigation";
 
 const Login = () => {
 
@@ -43,20 +44,53 @@ const Login = () => {
 
 
     return (
-        <div className="container">
-            <h1>Login</h1>
-            <hr/>
-            <p>{loginError}</p>
+        <>
+            <Navigation />
+            <div className="container">
+                <h1>Login</h1>
+                <hr/>
 
-            {!userState.isLoggedIn &&
-                <form>
-                    <input onInput={ e => setUsername(e.currentTarget.value)} type="text" placeholder="Username" />
-                    <input onInput={ e => setPassword(e.currentTarget.value)} type="password" placeholder="Password" />
-                    <button onClick={checkCredentials} type="button">Login</button>
-                </form>
-            }
+                {userState.isLoggedIn
+                    ? <Navigate to="/" />
+                    :
+                    <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                        <div className="card">
+                            <div className="card-header">
+                                <h4>LOGIN</h4>
+                            </div>
 
-        </div>
+                            <div className="card-body">
+                                <form>
+
+                                    <div className="mb-3">
+                                        <label htmlFor="email">Email <span className="text-danger">* </span></label>
+                                        <input onInput={e => setUsername(e.currentTarget.value)} type="email"
+                                               className="form-control mt-2" autoFocus/>
+                                    </div>
+
+
+                                    <div className="mb-3">
+                                        <label htmlFor="password">Password <span className="text-danger">* </span></label>
+                                        <input onInput={e => setPassword(e.currentTarget.value)} type="password"
+                                               className="form-control mt-2"/>
+                                    </div>
+
+                                    <button onClick={checkCredentials} type="button"
+                                            className="btn btn-primary form-control my-2">Login
+                                    </button>
+
+                                </form>
+                            </div>
+
+                            <div className="card-footer">
+                                <h6 className="text-danger">{loginError}</h6>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </>
     )
 }
 

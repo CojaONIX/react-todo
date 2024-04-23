@@ -1,7 +1,10 @@
 import {Button, Container, Form, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {useReducer} from "react";
+import {getUsersInitialData, userReducer} from "../../Reducers/User";
 
 
 const Navigation = () => {
+    const [userState, userDispatch] = useReducer(userReducer, getUsersInitialData());
     return (
         <Navbar expand="lg">
             <Container>
@@ -17,17 +20,11 @@ const Navigation = () => {
                         <Nav.Link href="/todo">ToDo</Nav.Link>
                         <Nav.Link href="/about">About</Nav.Link>
                     </Nav>
-                    <Form className="d-flex">
-                        <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
 
-                    <a className="btn btn-outline-primary ms-3" href="/login">LogIn</a>
+                    {userState.isLoggedIn
+                        ? <p>Hello, {userState.username}</p>
+                        : <a className="btn btn-outline-primary ms-3" href="/login">Login</a>
+                    }
                 </Navbar.Collapse>
             </Container>
         </Navbar>
