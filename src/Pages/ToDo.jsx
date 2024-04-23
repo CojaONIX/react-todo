@@ -8,7 +8,7 @@ const ToDo = () => {
             <div className="container">
                 <h1>ToDo</h1>
                 <hr/>
-                <p>LogIn redirect!</p>
+                <p>ToDo List</p>
             </div>
         </>
     )
