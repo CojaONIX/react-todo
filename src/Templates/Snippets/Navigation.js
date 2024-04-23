@@ -1,11 +1,10 @@
 import {Container, Nav, Navbar} from "react-bootstrap";
-import {useReducer} from "react";
-import {getUsersInitialData, userReducer} from "../../Reducers/User";
-
+import {useContext} from "react";
+import {UserContext} from "../../App";
 
 const Navigation = () => {
 
-    const [userState, userDispatch] = useReducer(userReducer, getUsersInitialData());
+    const {userState} = useContext(UserContext);
 
     return (
         <Navbar expand="lg">
@@ -26,7 +25,7 @@ const Navigation = () => {
                     {userState.isLoggedIn
                         ? <>
                             <p className="my-2">Hello, {userState.username}</p>
-                            <a className="btn btn-outline-danger ms-3" href="/logout">Logout</a>
+                            <a onClick={() => localStorage.removeItem('userData')} className="btn btn-outline-danger ms-3" href="/">Logout</a>
                         </>
                         : <a className="btn btn-outline-primary ms-3" href="/login">Login</a>
                     }

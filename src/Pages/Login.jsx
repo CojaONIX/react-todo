@@ -1,9 +1,9 @@
 
-import {useEffect, useReducer, useState} from "react";
-import {getUsersInitialData, userReducer} from "../Reducers/User";
+import {useContext, useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
 import Navigation from "../Templates/Snippets/Navigation";
 import USERS from '../Data/users.json';
+import {UserContext} from "../App";
 
 const Login = () => {
 
@@ -11,7 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loginMessage, setLoginMessage] = useState(null);
 
-    const [userState, userDispatch] = useReducer(userReducer, getUsersInitialData());
+    const {userState, userDispatch} = useContext(UserContext);
 
     const checkCredentials = () => {
         if(!(username.trim() && password.trim())) {
@@ -31,8 +31,6 @@ const Login = () => {
 
         if(!foundUser) {
             setLoginMessage('Ne postoji trazeni korisnik!');
-        } else {
-            setLoginMessage('Pozdrav '+username+'!');
         }
     }
 
