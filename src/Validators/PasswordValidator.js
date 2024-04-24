@@ -9,9 +9,11 @@ export const PasswordValidator = {
         value: 16,
         message: 'Password must have a maximum 16 characters'
     },
-    pattern: {
-        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{4,}$/i,
-        message: "Password must have A-Z, a-z, 0-9, !@#$%^&*()",
+    validate: {
+        capitalLetterCheck: value => /[A-Z]/.test(value) || 'Password must include capital letter(s)',
+        lowercaseLetterCheck: value => /[a-z]/.test(value) || 'Password must include lowercase letter(s)',
+        numberCheck: value => /[0-9]/.test(value) || 'Password must include number(s)',
+        specialLetterCheck: value => /[!@#$%^&*]/.test(value) || 'Password must include !@#$%^&* character(s)',
     }
 };
 
