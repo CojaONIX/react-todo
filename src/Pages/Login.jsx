@@ -24,7 +24,7 @@ const Login = () => {
                 <hr/>
 
                 <h5>Test Login:</h5>
-                <p>Email: user</p>
+                <p>Email: user@user.com</p>
                 <p>Pass: user</p>
 
                 {userState.isLoggedIn

@@ -9,7 +9,7 @@ const LoginForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
     } = useForm();
 
     const {userDispatch} = useContext(UserContext);
@@ -18,7 +18,7 @@ const LoginForm = () => {
     const formSubmitted = (data) => {
         let foundUser = false;
         USERS.forEach((user) => {
-            if(user.username === data.username && user.password === data.password) {
+            if (user.username === data.username && user.password === data.password) {
                 foundUser = true;
                 userDispatch({type: 'SET_USERNAME', payload: data.username});
                 userDispatch({type: 'SET_IS_LOGGED_IN', payload: true});
@@ -26,7 +26,7 @@ const LoginForm = () => {
             }
         });
 
-        if(!foundUser) {
+        if (!foundUser) {
             setLoginMessage('Wrong credentials!');
         }
     }
@@ -44,8 +44,9 @@ const LoginForm = () => {
                             <label htmlFor="username">Email <span className="text-danger">*</span></label>
                             <input {...register("username", {
                                         required: 'Email field is required',
-                                        validate: {
-                                            trimCheck: value => value.trim() !== '' || 'Email cannot be empty or spaces only'
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: "Invalid email address",
                                         }
                                     })}
 
@@ -74,10 +75,10 @@ const LoginForm = () => {
                     </form>
                 </div>
 
-                <div className="card-footer">
-                    <h6 className="text-danger">{errors.username && <span>{errors.username.message}</span>}</h6>
-                    <h6 className="text-danger">{errors.password && <span>{errors.password.message}</span>}</h6>
-                    <h6 className="text-danger">{loginMessage}</h6>
+                <div className="card-footer text-danger">
+                    <h6>{errors.username && <span>{errors.username.message}</span>}</h6>
+                    <h6>{errors.password && <span>{errors.password.message}</span>}</h6>
+                    <h6>{loginMessage}</h6>
                 </div>
             </div>
         </div>

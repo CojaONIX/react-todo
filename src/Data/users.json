@@ -1,14 +1,14 @@
 [
   {
-    "username": "admin",
+    "username": "admin@admin.com",
     "password": "admin"
   },
   {
-    "username": "user",
+    "username": "user@user.com",
     "password": "user"
   },
   {
-    "username": "fake",
+    "username": "fake@fake.com",
     "password": "fake"
   }
 ]
