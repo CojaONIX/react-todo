@@ -2,6 +2,8 @@ import USERS from "../Data/users.json";
 import {useContext, useState} from "react";
 import {UserContext} from "../App";
 import {useForm} from "react-hook-form";
+import {EmailValidator} from "../Validators/EmailValidator";
+import {PasswordValidator} from "../Validators/PasswordValidator";
 
 
 const LoginForm = () => {
@@ -42,33 +44,23 @@ const LoginForm = () => {
                     <form onSubmit={handleSubmit(formSubmitted)}>
                         <div className="mb-3">
                             <label htmlFor="username">Email <span className="text-danger">*</span></label>
-                            <input {...register("username", {
-                                        required: 'Email field is required',
-                                        pattern: {
-                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                            message: "Invalid email address",
-                                        }
-                                    })}
-
+                            <input {...register("username", EmailValidator)}
                                    onInput={e => setLoginMessage('')}
                                    type="text"
                                    id="username"
-                                   className="form-control mt-2" autoFocus/>
+                                   className="form-control mt-2"
+                                   autoFocus
+                            />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="password">Password <span className="text-danger">*</span></label>
-                            <input {...register("password", {
-                                        required: 'Password field is required',
-                                        validate: {
-                                            trimCheck: value => value.trim() !== '' || 'Password cannot be empty or spaces only'
-                                        }
-                                    })}
-
+                            <input {...register("password", PasswordValidator)}
                                    onInput={e => setLoginMessage('')}
                                    type="password"
                                    id="password"
-                                   className="form-control mt-2"/>
+                                   className="form-control mt-2"
+                            />
                         </div>
 
                         <button className="btn btn-primary form-control my-2">Login</button>
