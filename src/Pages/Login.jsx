@@ -24,8 +24,8 @@ const Login = () => {
                 <hr/>
 
                 <h5>Test Login:</h5>
-                <p>Email: user@user.com</p>
-                <p>Pass: user</p>
+                <p>Email: user@gmail.com</p>
+                <p>Pass: User#123</p>
 
                 {userState.isLoggedIn
                     ? <Navigate to="/"/>

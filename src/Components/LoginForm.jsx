@@ -57,7 +57,7 @@ const LoginForm = () => {
                             <label htmlFor="password">Password <span className="text-danger">*</span></label>
                             <input {...register("password", PasswordValidator)}
                                    onInput={e => setLoginMessage('')}
-                                   type="password"
+                                   type="text"
                                    id="password"
                                    className="form-control mt-2"
                             />

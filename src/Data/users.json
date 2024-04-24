@@ -1,14 +1,14 @@
 [
   {
-    "username": "admin@admin.com",
-    "password": "admin"
+    "username": "admin@gmail.com",
+    "password": "Admin#123"
   },
   {
-    "username": "user@user.com",
-    "password": "user"
+    "username": "user@gmail.com",
+    "password": "User#123"
   },
   {
-    "username": "fake@fake.com",
-    "password": "fake"
+    "username": "fake@gmail.com",
+    "password": "Fake#123"
   }
 ]
