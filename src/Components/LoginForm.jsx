@@ -1,9 +1,19 @@
 import USERS from "../Data/users.json";
 import {useContext, useState} from "react";
 import {UserContext} from "../App";
+import {useForm} from "react-hook-form";
 
 
 const LoginForm = () => {
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
+
+    const onSubmit = (data) => console.log(data);
 
     const {userState, userDispatch} = useContext(UserContext);
 
@@ -40,28 +50,35 @@ const LoginForm = () => {
                 </div>
 
                 <div className="card-body">
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="mb-3">
-                            <label htmlFor="email">Email <span className="text-danger">* </span></label>
-                            <input onInput={e => setUsername(e.currentTarget.value)} type="email"
+                            <label htmlFor="username">Email <span className="text-danger">*</span></label>
+                            <input {...register("username", {required: true})}
+                                   onInput={e => setUsername(e.currentTarget.value)}
+                                   type="text"
+                                   id="username"
                                    className="form-control mt-2" autoFocus/>
                         </div>
 
                         <div className="mb-3">
-                            <label htmlFor="password">Password <span
-                                className="text-danger">* </span></label>
-                            <input onInput={e => setPassword(e.currentTarget.value)} type="password"
+                            <label htmlFor="password">Password <span className="text-danger">*</span></label>
+                            <input {...register("password", {required: true})}
+                                   onInput={e => setPassword(e.currentTarget.value)}
+                                   type="password"
+                                   id="password"
                                    className="form-control mt-2"/>
                         </div>
 
-                        <button onClick={checkCredentials} type="button"
-                                className="btn btn-primary form-control my-2">Login
+                        <button onClick={checkCredentials}
+                            className="btn btn-primary form-control my-2">Login
                         </button>
 
                     </form>
                 </div>
 
                 <div className="card-footer">
+                    <h6 className="text-danger">{errors.username && <span>Email field is required</span>}</h6>
+                    <h6 className="text-danger">{errors.password && <span>Password field is required</span>}</h6>
                     <h6 className="text-danger">{loginMessage}</h6>
                 </div>
             </div>
