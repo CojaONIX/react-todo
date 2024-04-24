@@ -5,7 +5,7 @@ const About = () => {
     return (
         <>
             <Navigation />
-            <div className="container">
+            <div className="container" style={{marginBottom: '500px'}}>
                 <h1>About</h1>
                 <hr/>
             </div>

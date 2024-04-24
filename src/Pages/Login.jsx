@@ -19,7 +19,7 @@ const Login = () => {
     return (
         <>
             <Navigation />
-            <div className="container">
+            <div className="container" style={{marginBottom: '200px'}}>
                 <h1>Login</h1>
                 <hr/>
 

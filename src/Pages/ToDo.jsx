@@ -4,7 +4,7 @@ const ToDo = () => {
     return (
         <>
             <Navigation />
-            <div className="container">
+            <div className="container" style={{marginBottom: '500px'}}>
                 <h1>ToDoList</h1>
                 <hr/>
                 <p>ToDoList</p>
