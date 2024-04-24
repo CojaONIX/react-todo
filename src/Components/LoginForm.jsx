@@ -9,36 +9,25 @@ const LoginForm = () => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => console.log(data);
-
-    const {userState, userDispatch} = useContext(UserContext);
-
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const {userDispatch} = useContext(UserContext);
     const [loginMessage, setLoginMessage] = useState(null);
 
-    const checkCredentials = () => {
-        if(!(username.trim() && password.trim())) {
-            setLoginMessage('Uneli ste pogresne podatke!');
-            return;
-        }
-
+    const formSubmitted = (data) => {
         let foundUser = false;
         USERS.forEach((user) => {
-            if(user.username === username && user.password === password) {
+            if(user.username === data.username && user.password === data.password) {
                 foundUser = true;
-                userDispatch({type: 'SET_USERNAME', payload: username});
+                userDispatch({type: 'SET_USERNAME', payload: data.username});
                 userDispatch({type: 'SET_IS_LOGGED_IN', payload: true});
                 userDispatch({type: 'SET_LOGIN_TIME', payload: new Date().getTime()});
             }
         });
 
         if(!foundUser) {
-            setLoginMessage('Ne postoji trazeni korisnik!');
+            setLoginMessage('Wrong credentials!');
         }
     }
 
@@ -50,11 +39,17 @@ const LoginForm = () => {
                 </div>
 
                 <div className="card-body">
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(formSubmitted)}>
                         <div className="mb-3">
                             <label htmlFor="username">Email <span className="text-danger">*</span></label>
-                            <input {...register("username", {required: true})}
-                                   onInput={e => setUsername(e.currentTarget.value)}
+                            <input {...register("username", {
+                                        required: 'Email field is required',
+                                        validate: {
+                                            trimCheck: value => value.trim() !== '' || 'Email cannot be empty or spaces only'
+                                        }
+                                    })}
+
+                                   onInput={e => setLoginMessage('')}
                                    type="text"
                                    id="username"
                                    className="form-control mt-2" autoFocus/>
@@ -62,23 +57,26 @@ const LoginForm = () => {
 
                         <div className="mb-3">
                             <label htmlFor="password">Password <span className="text-danger">*</span></label>
-                            <input {...register("password", {required: true})}
-                                   onInput={e => setPassword(e.currentTarget.value)}
+                            <input {...register("password", {
+                                        required: 'Password field is required',
+                                        validate: {
+                                            trimCheck: value => value.trim() !== '' || 'Password cannot be empty or spaces only'
+                                        }
+                                    })}
+
+                                   onInput={e => setLoginMessage('')}
                                    type="password"
                                    id="password"
                                    className="form-control mt-2"/>
                         </div>
 
-                        <button onClick={checkCredentials}
-                            className="btn btn-primary form-control my-2">Login
-                        </button>
-
+                        <button className="btn btn-primary form-control my-2">Login</button>
                     </form>
                 </div>
 
                 <div className="card-footer">
-                    <h6 className="text-danger">{errors.username && <span>Email field is required</span>}</h6>
-                    <h6 className="text-danger">{errors.password && <span>Password field is required</span>}</h6>
+                    <h6 className="text-danger">{errors.username && <span>{errors.username.message}</span>}</h6>
+                    <h6 className="text-danger">{errors.password && <span>{errors.password.message}</span>}</h6>
                     <h6 className="text-danger">{loginMessage}</h6>
                 </div>
             </div>
