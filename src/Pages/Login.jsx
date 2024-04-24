@@ -48,8 +48,12 @@ const Login = () => {
                 <h1>Login</h1>
                 <hr/>
 
+                <h5>Test Login:</h5>
+                <p>Email: user</p>
+                <p>Pass: user</p>
+
                 {userState.isLoggedIn
-                    ? <Navigate to="/" />
+                    ? <Navigate to="/"/>
                     :
                     <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div className="card">
@@ -61,12 +65,15 @@ const Login = () => {
                                 <form>
                                     <div className="mb-3">
                                         <label htmlFor="email">Email <span className="text-danger">* </span></label>
-                                        <input onInput={e => setUsername(e.currentTarget.value)} type="email" className="form-control mt-2" autoFocus/>
+                                        <input onInput={e => setUsername(e.currentTarget.value)} type="email"
+                                               className="form-control mt-2" autoFocus/>
                                     </div>
 
                                     <div className="mb-3">
-                                        <label htmlFor="password">Password <span className="text-danger">* </span></label>
-                                        <input onInput={e => setPassword(e.currentTarget.value)} type="password" className="form-control mt-2"/>
+                                        <label htmlFor="password">Password <span
+                                            className="text-danger">* </span></label>
+                                        <input onInput={e => setPassword(e.currentTarget.value)} type="password"
+                                               className="form-control mt-2"/>
                                     </div>
 
                                     <button onClick={checkCredentials} type="button"
